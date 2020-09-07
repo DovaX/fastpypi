@@ -1,6 +1,6 @@
 import os
 import dogui.dogui_core as dg
-from keepvariable_core import Var,kept_variables,save_variables,load_variable
+from keepvariable.keepvariable_core import Var,kept_variables,save_variables,load_variable
 
 def create_setup_py():
     
@@ -8,6 +8,7 @@ def create_setup_py():
     version=entry2.text.get()
     author=entry3.text.get()
     author_email=entry4.text.get()
+    url=entry5.text.get()
     
     setup_py_str="""import setuptools
     
@@ -22,7 +23,7 @@ def create_setup_py():
         description="Description",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        url="https://github.com/pypa/sampleproject",
+        url='"""+url+"""',
         packages=setuptools.find_packages(),
         classifiers=[
             "Programming Language :: Python :: 3",
@@ -49,5 +50,7 @@ label3=dg.Label(gui1.window,"Author",3,1)
 entry3=dg.Entry(gui1.window,3,2)
 label4=dg.Label(gui1.window,"Author email",4,1)
 entry4=dg.Entry(gui1.window,4,2)
+label5=dg.Label(gui1.window,"Url",5,1)
+entry5=dg.Entry(gui1.window,5,2)
 
 gui1.build_gui()
