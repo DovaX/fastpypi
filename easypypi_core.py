@@ -37,6 +37,10 @@ def create_setup_py():
     with open("test.py","w+") as file:
         file.write(setup_py_str)
 
+
+def upload():
+    pass
+
 gui1=dg.GUI("Easy PyPI Tool")
 
 label1=dg.Label(gui1.window,"Package name",1,1)
