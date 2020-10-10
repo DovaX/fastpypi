@@ -64,7 +64,7 @@ def create_licence():
         SOFTWARE.
     """
     
-    with open("test.py","w+") as file:
+    with open("LICENSE","w+") as file:
         file.write(mit_licence_str)
 
 
