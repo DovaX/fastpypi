@@ -16,7 +16,7 @@ pip install fastpypi
 
 Run a Python interpreter in console/terminal
 ```
->>> import fastpypi_pkg.fastpypi.fastpypi_core
+>>> import fastpypi.fastpypi_core
 ```
 
 This will launch a FastPyPI GUI (as in the picture).
