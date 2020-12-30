@@ -1,6 +1,7 @@
 # FastPyPI
 
 FastPyPI is a package enabling user to create and update existing PyPI packages in an easy-to-use gui. 
+
 (creates ```pip install XXX``` for your package)
 
 ## Installation
