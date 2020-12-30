@@ -1,5 +1,5 @@
 import os
-import dogui.dogui.dogui_core as dg
+import dogui.dogui_core as dg
 from keepvariable.keepvariable_core import Var,kept_variables,save_variables,load_variable
 
 
@@ -168,8 +168,6 @@ label8=dg.Label(gui1.window,"Short Description",8,1)
 entry8=dg.Entry(gui1.window,8,2,width=50)
 label7=dg.Label(gui1.window,"Dependencies",9,1)
 entry7=dg.Entry(gui1.window,9,2,width=50)
-
-
 
 
 
