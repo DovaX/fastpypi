@@ -2,10 +2,7 @@ import os
 import dogui.dogui_core as dg
 from keepvariable.keepvariable_core import Var,kept_variables,save_variables,load_variable
 
-try:
-    from fastpypi.credentials import PYPI_USERNAME, PYPI_PASSWORD
-except:
-   PYPI_USERNAME, PYPI_PASSWORD = ("", "") 
+
 
 def load_setup_py():
     """Checks whether there is already a setup file for given package"""
@@ -131,10 +128,22 @@ def create_package():
     
 
 def upload_to_pypi():
+    
+    try:
+        with open("fastpypi/credentials.ini", "r") as file:
+            rows=file.readlines()
+        print(rows)
+        PYPI_USERNAME=rows[0].split("=")[1].strip()
+        PYPI_PASSWORD=rows[1].split("=")[1].strip()
+        
+    except:
+       PYPI_USERNAME, PYPI_PASSWORD = ("", "") 
+    
+    print("CRED",PYPI_USERNAME, PYPI_PASSWORD)
     if PYPI_USERNAME == "" and PYPI_PASSWORD == "":
         os.system("python -m twine upload dist/*")
     else:
-        os.system("python -m twine -u "+PYPI_USERNAME+" -p "+PYPI_PASSWORD+" upload dist/*")
+        os.system("python -m twine upload dist/* -u "+PYPI_USERNAME+" -p "+PYPI_PASSWORD)
    
     
 def change_directory():

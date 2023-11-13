@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     
 setuptools.setup(
     name='fastpypi',
-    version='0.1.1',
+    version='0.1.2',
     author='DovaX',
     author_email='dovax.ai@gmail.com',
     description='A package enabling user to create and update existing PyPI packages in an easy-to-use gui.',
