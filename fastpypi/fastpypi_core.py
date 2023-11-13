@@ -2,8 +2,10 @@ import os
 import dogui.dogui_core as dg
 from keepvariable.keepvariable_core import Var,kept_variables,save_variables,load_variable
 
-from fastpypi.credentials import PYPI_USERNAME, PYPI_PASSWORD
-
+try:
+    from fastpypi.credentials import PYPI_USERNAME, PYPI_PASSWORD
+except:
+   PYPI_USERNAME, PYPI_PASSWORD = ("", "") 
 
 def load_setup_py():
     """Checks whether there is already a setup file for given package"""
