@@ -1,8 +1,8 @@
 import os
 import dogui.dogui_core as dg
-from keepvariable.keepvariable_core import Var,kept_variables,save_variables,load_variable
+from keepvariable.keepvariable_core import KeepVariableDummyRedisServer
 
-
+kv_redis=KeepVariableDummyRedisServer()
 
 def load_setup_py():
     """Checks whether there is already a setup file for given package"""
@@ -130,7 +130,8 @@ def create_package():
 def upload_to_pypi():
     
     try:
-        with open("fastpypi/credentials.ini", "r") as file:
+    
+        with open(fastpypi_dir+"/credentials.ini", "r") as file:
             rows=file.readlines()
         print(rows)
         PYPI_USERNAME=rows[0].split("=")[1].strip()
@@ -148,14 +149,68 @@ def upload_to_pypi():
     
 def change_directory():
     new_dir=entry6.text.get()
+    try:    
+        os.chdir(fastpypi_dir) #to store favourite packages
+        favourite_packages=kv_redis.get("fastpypi_favourite_packages")
+        print("FAV1",favourite_packages)
+
+        if favourite_packages is None:
+            favourite_packages=[]
+            print("FAV2",favourite_packages)
+        
+        if new_dir is not None and new_dir not in favourite_packages:
+            favourite_packages.append(new_dir)
+            print("FAV3",favourite_packages)
+
+        kv_redis.set("fastpypi_favourite_packages",favourite_packages)
+        print("Storing",favourite_packages)
+    except Exception as e:
+        print("Warning - Fastpypi: favourite package was not stored in kv_redis",e)
+        
     os.chdir(new_dir)
-    new_dir=label21.text.set(new_dir)
-    
+    label21.text.set(new_dir)
     print(os.getcwd())
     
+       
+def change_directory_to_favourite1():
+    new_dir=favourite_packages[0]
+    os.chdir(new_dir)
+    label21.text.set(new_dir)
+    print(os.getcwd())
+    load_setup_py()
+    
+def change_directory_to_favourite2():
+    new_dir=favourite_packages[1]
+    os.chdir(new_dir)
+    label21.text.set(new_dir)
+    print(os.getcwd())
+    load_setup_py()
+    
+def change_directory_to_favourite3():
+    new_dir=favourite_packages[2]
+    os.chdir(new_dir)
+    label21.text.set(new_dir)
+    print(os.getcwd())
+    load_setup_py()
+            
+def change_directory_to_favourite4():
+    new_dir=favourite_packages[3]
+    os.chdir(new_dir)
+    label21.text.set(new_dir)
+    print(os.getcwd())
+    load_setup_py()
+    
+def change_directory_to_favourite5():
+    new_dir=favourite_packages[4]
+    os.chdir(new_dir)
+    label21.text.set(new_dir)
+    print(os.getcwd())
+    load_setup_py()
+
     
 
 current_dir=os.getcwd()
+fastpypi_dir=os.getcwd()
 gui1=dg.GUI("Easy PyPI Tool")
 
 label1=dg.Label(gui1.window,"Package name",3,1)
@@ -186,6 +241,22 @@ entry8=dg.Entry(gui1.window,8,2,width=50)
 label7=dg.Label(gui1.window,"Dependencies",9,1)
 entry7=dg.Entry(gui1.window,9,2,width=50)
 
+
+
+
+
+
+favourite_packages=kv_redis.get("fastpypi_favourite_packages")
+print("FAV",favourite_packages)
+
+change_directory_to_favourite_function_list=[change_directory_to_favourite1, change_directory_to_favourite2, change_directory_to_favourite3, change_directory_to_favourite4, change_directory_to_favourite5]
+if favourite_packages is not None:
+    for i in range(min(5, len(favourite_packages))):
+        
+        dg.Label(gui1.window,"Favourite package "+str(i)+":",10+i,1)
+        favourite_package_btn1=dg.Button(gui1.window,"Chdir and load setup: "+str(favourite_packages[i]),change_directory_to_favourite_function_list[i],10+i,2)
+  
+    
 
 
 label6=dg.Label(gui1.window,"Current directory:",1,1)
